@@ -56,11 +56,19 @@ INSERT INTO assign (ID, p_no, datee) VALUES (8, 8, '2024-08-20');
 INSERT INTO assign (ID, p_no, datee) VALUES (9, 9, '2024-09-25');
 INSERT INTO assign (ID, p_no, datee) VALUES (10, 10,'2024-10-30'); 
 
-
+--1
+select customer.ID,customer.name FROM
+project join assign on project.p_no=assign.p_no
+join customer on customer.ID= assign.ID where project.location="New York" and budget >=60000
 
 
 --2
 select location, avg(budget) from project group by location
 --3
+select project.location, count(assign.ID) as total_employee FROM
+project join assign on project.p_no=assign.p_no group by location having count(assign.ID)>1
 
-select location, count(*) from project where (count(ID)>1)
+--4
+select customer.name, customer.ID,project.location from customer join 
+assign on customer.ID= assign.ID join project on 
+project.p_no=assign.p_no where project.location= "New york"
